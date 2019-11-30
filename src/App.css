@@ -20,3 +20,23 @@
 .App-link {
   color: #09d3ac;
 }
+
+.card {
+  float: left;
+  height: 450px;
+  margin: 12px;
+  width: 16rem !important;
+}
+
+.card p {
+  color: black;
+  font-size: 18px;
+}
+
+.card-title {
+  color: black;
+}
+
+.card-img {
+  background: #222;
+}

@@ -1,6 +1,9 @@
 import React from 'react';
 import { secondsToString } from '../utils/timeutils';
-// import { number } from 'prop-types';
+import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
+import diff from 'jest-diff';
+import image from '../images/neutralitems.png';
+
 
 type IProps = {
   gameTime: number;
@@ -11,15 +14,15 @@ type IState = {
 };
 export class NeutralItems extends React.Component<IProps, IState> {
   state = {
-      seconds: 0,
+    seconds: 0,
   }
   myInterval: any;
 
   dropTimesMinutes: number[] = [
-    5, 
-    15, 
-    25, 
-    40, 
+    5,
+    15,
+    25,
+    40,
     70
   ];
 
@@ -28,7 +31,7 @@ export class NeutralItems extends React.Component<IProps, IState> {
   }
 
   componentWillUnmount() {
-      clearInterval(this.myInterval)
+    clearInterval(this.myInterval)
   }
 
   currentTier(gameTime: number) {
@@ -45,16 +48,20 @@ export class NeutralItems extends React.Component<IProps, IState> {
     if (this.currentTier(this.props.gameTime) === this.dropTimesMinutes.length) {
       return "Max tier reached";
     }
-    return secondsToString(this.dropTimesMinutes[this.currentTier(this.props.gameTime)] * 60 - gameTime);
+    return "Next tier: " + secondsToString(this.dropTimesMinutes[this.currentTier(this.props.gameTime)] * 60 - gameTime);
   }
 
   render() {
-      return (
-          <div>
-            {/* <h1>Neutral items: { secondsToString(this.state.seconds) }</h1> */}
-            <h2>Current tier: { this.currentTier(this.props.gameTime) }</h2>
-            <h2>Next tier in: { this.timeTillNextTier(this.props.gameTime) }</h2> 
-          </div>
-      )
+    return (
+      <Card style={{ width: '18rem' }}>
+        <CardImg variant="top" src={image} />
+        <CardBody>
+          <CardTitle>{this.timeTillNextTier(this.props.gameTime)}</CardTitle>
+          <CardText>
+            <h3>Current tier: {this.currentTier(this.props.gameTime)}</h3>
+          </CardText>
+        </CardBody>
+      </Card>
+    )
   }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import { secondsToString } from '../utils/timeutils';
+import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
+import image from '../images/bountyrune.jpg';
 
 type IProps = {
   gameTime: number;
@@ -23,12 +25,23 @@ export class Outposts extends React.Component<IProps, IState> {
   }
 
   render() {
-    let diff: number = this.props.gameTime % this.state.seconds;
+    if (this.state.seconds != 300 && this.props.gameTime > 600) {
+      this.setState({
+        seconds: 300
+      })
+    }
 
+    let diff: number = this.props.gameTime % this.state.seconds;
+    
       return (
-          <div>
-            <h1>Outposts: { secondsToString(this.state.seconds - diff) }</h1>
-          </div>
+        <Card style={{ width: '18rem' }}>
+          <CardImg variant="top" src="https://gamepedia.cursecdn.com/dota2_gamepedia/0/04/Outpost_Neutral_model.png" />
+          <CardBody>
+            <CardTitle>{secondsToString(this.state.seconds - diff)}</CardTitle>
+            <CardText>
+            </CardText>
+          </CardBody>
+        </Card>
       )
   }
 }

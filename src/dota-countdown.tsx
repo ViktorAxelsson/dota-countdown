@@ -4,6 +4,8 @@ import { PowerRunes } from './components/power-runes';
 import { Outposts } from './components/outposts';
 import { NeutralItems } from './components/neutral-items';
 import { secondsToString } from './utils/timeutils';
+import { Button } from 'reactstrap';
+import { Tomes } from './components/Tomes';
 
 type IProps = {
 };
@@ -16,18 +18,21 @@ export class DotaCountdown extends React.Component<IProps, IState> {
         seconds: 0,
     }
     myInterval: any;
+    timePaused: boolean = false;
 
     constructor(props: any) {
         super(props);
     }
 
-    interval: number = 100;
+    interval: number = 10;
 
     componentDidMount() {
         this.myInterval = setInterval(() => {
-            this.setState(({ seconds }) => ({
-                seconds: seconds + 1
-            }));
+            if (!this.timePaused) {
+                this.setState(({ seconds }) => ({
+                    seconds: seconds + 1
+                }));
+            }
         }, this.interval)
     }
 
@@ -39,9 +44,11 @@ export class DotaCountdown extends React.Component<IProps, IState> {
         this.setState({
             seconds: sec
         });
+        this.timePaused = false;
     }
 
-    reset() {
+    pauseTime() {
+        this.timePaused = !this.timePaused;
     }
 
     render() {
@@ -49,15 +56,24 @@ export class DotaCountdown extends React.Component<IProps, IState> {
         return (
             <div>
                 <h1>Game Time: {secondsToString(this.state.seconds)}</h1>
-                <button onClick={() => this.clickStart(0)}>Start 0</button>
-                <button onClick={() => this.clickStart(-10)}>Start -10</button>
-                <button onClick={() => this.clickStart(-20)}>Start -20</button>
-                <button onClick={() => this.clickStart(-30)}>Start -30</button>
+                <Button onClick={() => this.clickStart(0)}>Start gametime</Button>
+                {/* <Button onClick={() => this.clickStart(-10)}>Start -10</Button>
+                <Button onClick={() => this.clickStart(-20)}>Start -20</Button>
+                <Button onClick={() => this.clickStart(-30)}>Start -30</Button> */}
 
-                <Bounties gameTime={this.state.seconds} ></Bounties>
-                <PowerRunes gameTime={this.state.seconds} ></PowerRunes>
-                <Outposts gameTime={this.state.seconds} ></Outposts>
-                <NeutralItems gameTime={this.state.seconds} ></NeutralItems>
+                <Button onClick={() => this.pauseTime()}>Pause</Button>
+
+                <div>
+                    <Bounties gameTime={this.state.seconds} ></Bounties>
+
+                    <PowerRunes gameTime={this.state.seconds} ></PowerRunes>
+
+                    <Outposts gameTime={this.state.seconds} ></Outposts>
+
+                    <NeutralItems gameTime={this.state.seconds} ></NeutralItems>
+
+                    <Tomes gameTime={this.state.seconds} ></Tomes>
+                </div>
             </div>
         )
     }
