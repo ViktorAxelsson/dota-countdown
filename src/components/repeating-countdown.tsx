@@ -6,6 +6,7 @@ type IProps = {
   gameTime: number;
   image: string;
   interval: number;
+  className: string;
 };
 
 type IState = {
@@ -13,23 +14,43 @@ type IState = {
 
 export class RepeatingCountdown extends React.Component<IProps, IState> {
   divStyle = {
-    opacity: '0.5',
-    'box-shadow': '0px 0px 40px 20px #0ff',
+    opacity: '0.2',
+    boxShadow: '0px 0px 40px 20px #0ff',
   };
 
-  componentDidMount() {
-  }
+  updateStyle(remaining: number) {
+    let shadow: string = "0px 0px 40px 20px #0ff";
+    let opacity: string = '0.2';
 
-  componentWillUnmount() {
+    // start fading up last minute of countdown
+    if(this.props.interval - remaining < 60) {
+      opacity = (1.2 - (this.props.interval - remaining) / 60).toString();
+
+      console.log(this.props.interval - remaining );
+    }
+
+    // flash last 30 seconds of countdown
+    if(this.props.interval - remaining < 30) {
+      if((this.props.interval - remaining) % 2 === 0) {
+        shadow = "0px 0px 0px 0px #0ff";
+      } else {
+        shadow = "0px 0px 40px 20px #0ff";
+      }
+    }
+
+    this.divStyle = {
+      opacity: opacity,
+      boxShadow: shadow
+    }
   }
 
   render() {
     let diff: number = this.props.gameTime % this.props.interval;
 
-    this.divStyle = {opacity: this.props.gameTime % 100 + 50 + "%", 'box-shadow': '0px 0px 40px 20px #0ff'};
+    this.updateStyle(diff);
 
     return (
-        <Card style={this.divStyle}>
+        <Card className={"flashyStuff"} style={this.divStyle}>
             <CardImg variant="top" src={this.props.image} />
           <CardBody>
             <CardTitle>{secondsToString(this.props.interval - diff)}</CardTitle>

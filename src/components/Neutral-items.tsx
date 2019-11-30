@@ -1,7 +1,6 @@
 import React from 'react';
 import { secondsToString } from '../utils/timeutils';
 import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
-import diff from 'jest-diff';
 import image from '../images/neutralitems.png';
 
 
@@ -53,14 +52,14 @@ export class NeutralItems extends React.Component<IProps, IState> {
 
   render() {
     return (
-      <Card style={{ width: '18rem' }}>
+      <Card style={{}}>
         <div>
           <CardImg variant="top" src={image} />
         </div>
         <CardBody>
           <CardTitle>{this.timeTillNextTier(this.props.gameTime)}</CardTitle>
           <CardText>
-            <h3>Current tier: {this.currentTier(this.props.gameTime)}</h3>
+            Current tier: {this.currentTier(this.props.gameTime)}
           </CardText>
         </CardBody>
       </Card>

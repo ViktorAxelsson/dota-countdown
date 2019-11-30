@@ -25,7 +25,7 @@ export class Outposts extends React.Component<IProps, IState> {
   }
 
   render() {
-    if (this.state.seconds != 300 && this.props.gameTime > 600) {
+    if (this.state.seconds !== 300 && this.props.gameTime > 600) {
       this.setState({
         seconds: 300
       })
@@ -35,7 +35,7 @@ export class Outposts extends React.Component<IProps, IState> {
     
       return (
         <Card style={{}}>
-          <CardImg variant="top" src="https://gamepedia.cursecdn.com/dota2_gamepedia/0/04/Outpost_Neutral_model.png" />
+          <CardImg variant="top" src={image} />
           <CardBody>
             <CardTitle>{secondsToString(this.state.seconds - diff)}</CardTitle>
             <CardText>

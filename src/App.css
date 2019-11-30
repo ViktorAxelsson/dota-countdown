@@ -42,3 +42,15 @@
   object-fit: contain;
   height: 250px;
 }
+
+.flashyStuff {
+  opacity: 0.2;
+  transition-property: opacity;
+  transition-duration: 4s;
+  transition-delay: 2s;
+}
+
+.flashyStuff:hover {
+  opacity: 1;
+}
+

@@ -1,11 +1,8 @@
 import React from 'react';
-import { Bounties } from './components/bounties'
-import { PowerRunes } from './components/power-runes';
 import { Outposts } from './components/outposts';
 import { NeutralItems } from './components/neutral-items';
 import { secondsToString } from './utils/timeutils';
 import { Button } from 'reactstrap';
-import { Tomes } from './components/Tomes';
 import { RepeatingCountdown } from './components/repeating-countdown';
 import bountyImage from './images/bountyrune.jpg';
 import powerruneImage from './images/powerrune.png';
@@ -24,11 +21,7 @@ export class DotaCountdown extends React.Component<IProps, IState> {
     myInterval: any;
     timePaused: boolean = true;
 
-    constructor(props: any) {
-        super(props);
-    }
-
-    interval: number = 100;
+    interval: number = 1000;
 
     componentDidMount() {
         this.myInterval = setInterval(() => {
@@ -61,22 +54,18 @@ export class DotaCountdown extends React.Component<IProps, IState> {
             <div>
                 <h1>Game Time: {secondsToString(this.state.seconds)}</h1>
                 <Button onClick={() => this.clickStart(0)}>Start gametime</Button>
-                {/* <Button onClick={() => this.clickStart(-10)}>Start -10</Button>
-                <Button onClick={() => this.clickStart(-20)}>Start -20</Button>
-                <Button onClick={() => this.clickStart(-30)}>Start -30</Button> */}
-
                 <Button onClick={() => this.pauseTime()}>Pause</Button>
 
                 <div>
-                    <RepeatingCountdown interval={300} image={bountyImage} gameTime={this.state.seconds}></RepeatingCountdown>
-
+                    <RepeatingCountdown className={"potato"} interval={30} image={bountyImage} gameTime={this.state.seconds}></RepeatingCountdown>
+{/* 
                     <RepeatingCountdown interval={120} image={powerruneImage} gameTime={this.state.seconds}></RepeatingCountdown>
 
                     <Outposts gameTime={this.state.seconds} ></Outposts>
 
                     <NeutralItems gameTime={this.state.seconds} ></NeutralItems>
 
-                    <RepeatingCountdown interval={600} image={tomeImage} gameTime={this.state.seconds}></RepeatingCountdown>
+                    <RepeatingCountdown interval={600} image={tomeImage} gameTime={this.state.seconds}></RepeatingCountdown> */}
                 </div>
             </div>
         )
