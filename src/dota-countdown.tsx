@@ -2,7 +2,7 @@ import React from 'react';
 import { Bounties } from './components/bounties'
 import { PowerRunes } from './components/power-runes';
 import { Outposts } from './components/outposts';
-import { NeutralItems } from './components/Neutral-items';
+import { NeutralItems } from './components/neutral-items';
 import { secondsToString } from './utils/timeutils';
 
 type IProps = {
@@ -21,7 +21,7 @@ export class DotaCountdown extends React.Component<IProps, IState> {
         super(props);
     }
 
-    interval: number = 10;
+    interval: number = 100;
 
     componentDidMount() {
         this.myInterval = setInterval(() => {
@@ -41,6 +41,9 @@ export class DotaCountdown extends React.Component<IProps, IState> {
         });
     }
 
+    reset() {
+    }
+
     render() {
 
         return (
@@ -51,10 +54,10 @@ export class DotaCountdown extends React.Component<IProps, IState> {
                 <button onClick={() => this.clickStart(-20)}>Start -20</button>
                 <button onClick={() => this.clickStart(-30)}>Start -30</button>
 
-                <Bounties interval={this.interval}></Bounties>
-                <PowerRunes interval={this.interval}></PowerRunes>
-                <Outposts interval={this.interval}></Outposts>
-                <NeutralItems interval={this.interval}></NeutralItems>
+                <Bounties gameTime={this.state.seconds} ></Bounties>
+                <PowerRunes gameTime={this.state.seconds} ></PowerRunes>
+                <Outposts gameTime={this.state.seconds} ></Outposts>
+                <NeutralItems gameTime={this.state.seconds} ></NeutralItems>
             </div>
         )
     }

@@ -3,7 +3,7 @@ import { secondsToString } from '../utils/timeutils';
 // import { number } from 'prop-types';
 
 type IProps = {
-  interval: number;
+  gameTime: number;
 };
 
 type IState = {
@@ -24,37 +24,36 @@ export class NeutralItems extends React.Component<IProps, IState> {
   ];
 
   componentDidMount() {
-      this.myInterval = setInterval(() => {
-        this.setState(({ seconds }) => ({
-            seconds: seconds + 1
-        }));
-      }, this.props.interval)
+
   }
 
   componentWillUnmount() {
       clearInterval(this.myInterval)
   }
 
-  currentTier() {
+  currentTier(gameTime: number) {
     let value = 0;
     for (let i = 0; i <= this.dropTimesMinutes.length; i++) {
-      if (this.state.seconds > this.dropTimesMinutes[i] * 60) {
+      if (gameTime > this.dropTimesMinutes[i] * 60) {
         value = i + 1;
       }
     }
     return value;
   }
 
-  timeTillNextTier() {
-    return this.dropTimesMinutes[this.currentTier()] * 60 - this.state.seconds;
+  timeTillNextTier(gameTime: number): string {
+    if (this.currentTier(this.props.gameTime) === this.dropTimesMinutes.length) {
+      return "Max tier reached";
+    }
+    return secondsToString(this.dropTimesMinutes[this.currentTier(this.props.gameTime)] * 60 - gameTime);
   }
 
   render() {
       return (
           <div>
             {/* <h1>Neutral items: { secondsToString(this.state.seconds) }</h1> */}
-            <h2>Current tier: { this.currentTier() }</h2>
-            <h2>Next tier in: { secondsToString(this.timeTillNextTier()) }</h2> 
+            <h2>Current tier: { this.currentTier(this.props.gameTime) }</h2>
+            <h2>Next tier in: { this.timeTillNextTier(this.props.gameTime) }</h2> 
           </div>
       )
   }

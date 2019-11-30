@@ -2,7 +2,7 @@ import React from 'react';
 import { secondsToString } from '../utils/timeutils';
 
 type IProps = {
-  interval: number;
+  gameTime: number;
 };
 
 type IState = {
@@ -15,17 +15,7 @@ export class PowerRunes extends React.Component<IProps, IState> {
   myInterval: any;
 
   componentDidMount() {
-      this.myInterval = setInterval(() => {
-        this.setState(({ seconds }) => ({
-            seconds: seconds - 1
-        }));
 
-        if (this.state.seconds === -30) {
-          this.setState({
-            seconds: 90
-          });
-        }
-      }, this.props.interval)
   }
 
   componentWillUnmount() {
@@ -33,9 +23,11 @@ export class PowerRunes extends React.Component<IProps, IState> {
   }
 
   render() {
+    let diff: number = this.props.gameTime % this.state.seconds;
+
       return (
           <div>
-            <h1>Power runes: {  secondsToString(this.state.seconds) }</h1>
+            <h1>Power runes: {  secondsToString(this.state.seconds - diff) }</h1>
           </div>
       )
   }
