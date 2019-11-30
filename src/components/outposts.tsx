@@ -34,7 +34,7 @@ export class Outposts extends React.Component<IProps, IState> {
     let diff: number = this.props.gameTime % this.state.seconds;
     
       return (
-        <Card style={{ width: '18rem' }}>
+        <Card style={{}}>
           <CardImg variant="top" src="https://gamepedia.cursecdn.com/dota2_gamepedia/0/04/Outpost_Neutral_model.png" />
           <CardBody>
             <CardTitle>{secondsToString(this.state.seconds - diff)}</CardTitle>

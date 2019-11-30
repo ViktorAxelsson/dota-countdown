@@ -6,6 +6,10 @@ import { NeutralItems } from './components/neutral-items';
 import { secondsToString } from './utils/timeutils';
 import { Button } from 'reactstrap';
 import { Tomes } from './components/Tomes';
+import { RepeatingCountdown } from './components/repeating-countdown';
+import bountyImage from './images/bountyrune.jpg';
+import powerruneImage from './images/powerrune.png';
+import tomeImage from './images/tome.png';
 
 type IProps = {
 };
@@ -18,13 +22,13 @@ export class DotaCountdown extends React.Component<IProps, IState> {
         seconds: 0,
     }
     myInterval: any;
-    timePaused: boolean = false;
+    timePaused: boolean = true;
 
     constructor(props: any) {
         super(props);
     }
 
-    interval: number = 10;
+    interval: number = 100;
 
     componentDidMount() {
         this.myInterval = setInterval(() => {
@@ -64,15 +68,15 @@ export class DotaCountdown extends React.Component<IProps, IState> {
                 <Button onClick={() => this.pauseTime()}>Pause</Button>
 
                 <div>
-                    <Bounties gameTime={this.state.seconds} ></Bounties>
+                    <RepeatingCountdown interval={300} image={bountyImage} gameTime={this.state.seconds}></RepeatingCountdown>
 
-                    <PowerRunes gameTime={this.state.seconds} ></PowerRunes>
+                    <RepeatingCountdown interval={120} image={powerruneImage} gameTime={this.state.seconds}></RepeatingCountdown>
 
                     <Outposts gameTime={this.state.seconds} ></Outposts>
 
                     <NeutralItems gameTime={this.state.seconds} ></NeutralItems>
 
-                    <Tomes gameTime={this.state.seconds} ></Tomes>
+                    <RepeatingCountdown interval={600} image={tomeImage} gameTime={this.state.seconds}></RepeatingCountdown>
                 </div>
             </div>
         )

@@ -54,7 +54,9 @@ export class NeutralItems extends React.Component<IProps, IState> {
   render() {
     return (
       <Card style={{ width: '18rem' }}>
-        <CardImg variant="top" src={image} />
+        <div>
+          <CardImg variant="top" src={image} />
+        </div>
         <CardBody>
           <CardTitle>{this.timeTillNextTier(this.props.gameTime)}</CardTitle>
           <CardText>
