@@ -2,7 +2,7 @@
   "name": "dota-countdown",
   "version": "0.1.0",
   "private": true,
-  "engines" {
+  "engines": {
     "node": "12.13.1"
   },
   "dependencies": {
