@@ -6,54 +6,48 @@ type IProps = {
   gameTime: number;
   image: string;
   interval: number;
-  className: string;
+  firstInterval?: number;
 };
 
 type IState = {
-};
+}
+
 
 export class RepeatingCountdown extends React.Component<IProps, IState> {
-  divStyle = {
-    opacity: '0.2',
-    boxShadow: '0px 0px 40px 20px #0ff',
-  };
+  componentClasses: string[] = [];
 
-  updateStyle(remaining: number) {
-    let shadow: string = "0px 0px 40px 20px #0ff";
-    let opacity: string = '0.2';
 
+  updateStyle(interval: number, remaining: number) {
+    this.componentClasses = [];
     // start fading up last minute of countdown
-    if(this.props.interval - remaining < 60) {
-      opacity = (1.2 - (this.props.interval - remaining) / 60).toString();
-
-      console.log(this.props.interval - remaining );
-    }
-
-    // flash last 30 seconds of countdown
-    if(this.props.interval - remaining < 30) {
-      if((this.props.interval - remaining) % 2 === 0) {
-        shadow = "0px 0px 0px 0px #0ff";
-      } else {
-        shadow = "0px 0px 40px 20px #0ff";
-      }
-    }
-
-    this.divStyle = {
-      opacity: opacity,
-      boxShadow: shadow
+    if(interval - remaining < 15) {
+      this.componentClasses.push("moreFlashyStuff opacityfull");
+    } else if(interval - remaining < 30) {
+      this.componentClasses.push("flashyStuff opacityfull");
+    } else if(interval - remaining < 60) {
+      this.componentClasses.push("opacityfull");
+    } else {
+      this.componentClasses.push("opacitylow");
     }
   }
 
   render() {
-    let diff: number = this.props.gameTime % this.props.interval;
+    let interval = this.props.interval;
 
-    this.updateStyle(diff);
+    if (this.props.firstInterval !== undefined && this.props.gameTime < this.props.firstInterval) {
+      interval = this.props.firstInterval;            
+    }
+
+
+    let diff: number = this.props.gameTime % interval;
+
+    this.updateStyle(interval, diff);
 
     return (
-        <Card className={"flashyStuff"} style={this.divStyle}>
+        <Card className={this.componentClasses.join(" ")}>
             <CardImg variant="top" src={this.props.image} />
           <CardBody>
-            <CardTitle>{secondsToString(this.props.interval - diff)}</CardTitle>
+            <CardTitle>{secondsToString(interval - diff)}</CardTitle>
             <CardText>
             </CardText>
           </CardBody>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { secondsToString } from '../utils/timeutils';
 import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
-import image from '../images/bountyrune.jpg';
+import image from '../images/outpost.png';
 
 type IProps = {
   gameTime: number;
