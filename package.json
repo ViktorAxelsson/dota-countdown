@@ -2,6 +2,9 @@
   "name": "dota-countdown",
   "version": "0.1.0",
   "private": true,
+  "engines" {
+    "node": "12.13.1"
+  },
   "dependencies": {
     "@types/jest": "24.0.23",
     "@types/node": "12.12.14",
