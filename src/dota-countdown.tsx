@@ -1,5 +1,4 @@
 import React from 'react';
-import { Outposts } from './components/outposts';
 import { NeutralItems } from './components/neutral-items';
 import { secondsToString } from './utils/timeutils';
 import { Button } from 'reactstrap';
@@ -64,23 +63,45 @@ export class DotaCountdown extends React.Component<IProps, IState> {
         console.log(this.state.timePaused);
     }
 
+    customTime(event: React.KeyboardEvent<HTMLInputElement>): void {
+        let value = (event.target as HTMLInputElement).value;
+        let parts = value.split(":");
+
+        console.log(+parts[0]);
+
+        if (event.key === 'Enter') {
+            if (parts.length === 2 && +parts[0] !== NaN && +parts[1] !== NaN) {
+                let seconds = +parts[0] * 60 + +parts[1];
+                if (+parts[0] === 0 && value[0] === "-") {
+                    seconds = seconds * -1;
+                }
+
+                this.startTimer(seconds);
+            }
+        }
+    }
+
     render() {
         return (
-            <div>
+            <div id="main">
                 <h1>Game Time: {secondsToString(this.state.seconds)}</h1>
 
                 {(this.state.gameStarted) ? (
-                    <div>
+                    <div className="buttonContainer">
                         <Button onClick={() => this.resetTimer()}>Reset</Button>
                         <Button onClick={() => this.pauseTime()}>{this.state.timePaused ? "Resume" : "Pause"}</Button>
                     </div>
                 ) : (
-                        <div>
+                        <div className="buttonContainer">
                             <Button onClick={() => this.startTimer(-80)}>Start gametime -1:20</Button>
                             <Button onClick={() => this.startTimer(-60)}>Start gametime -1:00</Button>
                             <Button onClick={() => this.startTimer(-40)}>Start gametime -0:40</Button>
                             <Button onClick={() => this.startTimer(-20)}>Start gametime -0:20</Button>
                             <Button onClick={() => this.startTimer(0)}>Start gametime 0:00</Button>
+                            <div>
+                                <label>Custom:</label>
+                                <input className="form-control" type="text" placeholder="13:37" onKeyUp={(e) => this.customTime(e)}></input>
+                            </div>
                         </div>
                     )
                 }
@@ -93,7 +114,7 @@ export class DotaCountdown extends React.Component<IProps, IState> {
                     <RepeatingCountdown interval={600} image={tomeImage} gameTime={this.state.seconds}></RepeatingCountdown>
 
                     <RepeatingCountdown interval={300} firstInterval={600} image={outpostsImage} gameTime={this.state.seconds}></RepeatingCountdown>
-                    
+
                     <NeutralItems gameTime={this.state.seconds} ></NeutralItems>
                 </div>
             </div>
