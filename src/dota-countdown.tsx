@@ -99,7 +99,7 @@ export class DotaCountdown extends React.Component<IProps, IState> {
                             <Button onClick={() => this.startTimer(-20)}>Start gametime -0:20</Button>
                             <Button onClick={() => this.startTimer(0)}>Start gametime 0:00</Button>
                             <div>
-                                <label>Custom:</label>
+                                <label>Start at custom time (start with Enter):</label>
                                 <input className="form-control" type="text" placeholder="13:37" onKeyUp={(e) => this.customTime(e)}></input>
                             </div>
                         </div>
