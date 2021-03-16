@@ -1,5 +1,19 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Dota Countdown
+This is a simple webapp for keeping track of various events in a game of DOTA. A main timer runs and as events get closer they will start flashing to alert the player. The timer can be started from preset times using the "Start gametime xx:xx" buttons while in the lobby or from the custom time input field. Input must be on the format NN:NN where N are numbers.
+If the timings in the game change the timings can be changed in the file config.json. All timings in the config.json file are in minutes.
+
+### config.json
+|Name|Value|
+|---|---|
+|BOUNTY_INTERVAL | Time in minutes between bounty rune spawns|
+|POWER_RUNE_INTERVAL | Time between power rune spawns|
+|TOME_INTERVAL | Time between tome availability in the shop|
+|NEUTRAL_ITEM_INTERVALS | Array containing neutral item game time spawn times |
+|OUTPOST_DELAY | Delay before outposts become available |
+|OUTPOST_INTERVAL | Time between outpost bonuses after initial delay |
+
 ## Available Scripts
 
 In the project directory, you can run:
