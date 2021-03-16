@@ -7,6 +7,7 @@ import bountyImage from './images/bountyrune.jpg';
 import powerruneImage from './images/powerrune.png';
 import tomeImage from './images/tome.png';
 import outpostsImage from './images/outpost.png';
+import configData from './config.json';
 
 type IProps = {
 };
@@ -104,13 +105,13 @@ export class DotaCountdown extends React.Component<IProps, IState> {
                 }
 
                 <div>
-                    <RepeatingCountdown interval={300} image={bountyImage} gameTime={this.state.seconds}></RepeatingCountdown>
+                    <RepeatingCountdown interval={configData.BOUNTY_INTERVAL * 60} image={bountyImage} gameTime={this.state.seconds}></RepeatingCountdown>
 
-                    <RepeatingCountdown interval={120} image={powerruneImage} gameTime={this.state.seconds}></RepeatingCountdown>
+                    <RepeatingCountdown interval={configData.POWER_RUNE_INTERVAL * 60} image={powerruneImage} gameTime={this.state.seconds}></RepeatingCountdown>
 
-                    <RepeatingCountdown interval={600} image={tomeImage} gameTime={this.state.seconds}></RepeatingCountdown>
+                    <RepeatingCountdown interval={configData.TOME_INTERVAL * 60} image={tomeImage} gameTime={this.state.seconds}></RepeatingCountdown>
 
-                    <RepeatingCountdown interval={300} firstInterval={600} image={outpostsImage} gameTime={this.state.seconds}></RepeatingCountdown>
+                    <RepeatingCountdown interval={configData.OUTPOST_INTERVAL * 60} firstInterval={configData.OUTPOST_DELAY * 60} image={outpostsImage} gameTime={this.state.seconds}></RepeatingCountdown>
 
                     <NeutralItems gameTime={this.state.seconds} ></NeutralItems>
                 </div>

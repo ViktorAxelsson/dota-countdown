@@ -2,6 +2,7 @@ import React from 'react';
 import { secondsToString } from '../utils/timeutils';
 import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
 import image from '../images/neutralitems.png';
+import configData from './../config.json';
 
 
 type IProps = {
@@ -17,13 +18,7 @@ export class NeutralItems extends React.Component<IProps, IState> {
   }
   myInterval: any;
 
-  dropTimesMinutes: number[] = [
-    5,
-    15,
-    25,
-    40,
-    70
-  ];
+  dropTimesMinutes: number[] = configData.NEUTRAL_ITEM_INTERVALS;
 
   componentDidMount() {
 
