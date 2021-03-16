@@ -64,13 +64,11 @@ export class DotaCountdown extends React.Component<IProps, IState> {
     }
 
     customTime(event: React.KeyboardEvent<HTMLInputElement>): void {
-        let value = (event.target as HTMLInputElement).value;
-        let parts = value.split(":");
-
-        console.log(+parts[0]);
-
         if (event.key === 'Enter') {
-            if (parts.length === 2 && +parts[0] !== NaN && +parts[1] !== NaN) {
+            let value = (event.target as HTMLInputElement).value;
+            let parts = value.split(":");
+
+            if (parts.length === 2 && !isNaN(+parts[0])  && !isNaN(+parts[1])) {
                 let seconds = +parts[0] * 60 + +parts[1];
                 if (+parts[0] === 0 && value[0] === "-") {
                     seconds = seconds * -1;
@@ -93,7 +91,6 @@ export class DotaCountdown extends React.Component<IProps, IState> {
                     </div>
                 ) : (
                         <div className="buttonContainer">
-                            <Button onClick={() => this.startTimer(-80)}>Start gametime -1:20</Button>
                             <Button onClick={() => this.startTimer(-60)}>Start gametime -1:00</Button>
                             <Button onClick={() => this.startTimer(-40)}>Start gametime -0:40</Button>
                             <Button onClick={() => this.startTimer(-20)}>Start gametime -0:20</Button>
